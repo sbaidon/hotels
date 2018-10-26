@@ -1,8 +1,13 @@
 <template>
   <div class="home">
     <div class="filters">
-      <label for="distance-to-venue">Name
-        <input name="distance-to-venue" type="text"/>
+      <label for="distance-to-venue">Distance to Venue
+        <select v-model="selectedDistance" name="distance-to-venue">
+          <option default>{{ $t("message.all") }}</option>
+          <option v-for="distance in distances" :key="distance" :value="distance">
+            {{toMeters(distance)}}
+          </option>
+        </select>
       </label>
       <label for="price-category">Price Category
         <select v-model="selectedCategory" name="price-category">
@@ -22,7 +27,9 @@
       </label>
     </div>
     <div class="hotels">
-      <HotelCard v-for="hotel in filteredHotels" :key="hotel.id" :hotel="hotel"/>
+      <hotel-card v-for="hotel in filteredHotels" :key="hotel.id" :hotel="hotel">
+        <router-link :to="`/hotel/${hotel.id}`">Check it out!</router-link>
+      </hotel-card>
     </div>
   </div>
 </template>
@@ -40,9 +47,11 @@ export default {
     return {
       selectedAmenity: this.$t("message.all"),
       selectedCategory: this.$t("message.all"),
+      selectedDistance: this.$t("message.all"),
       filters: [
         this.filterByAmenity,
         this.filterByPriceCategory,
+        this.filterByDistance,
       ],
     }
   },
@@ -63,6 +72,12 @@ export default {
       const categories = this.hotels.map(hotel => hotel.price_category)
       return [...new Set(categories)]
     },
+    distances() {
+      if(!this.hotels.length)  return []
+
+      const distances = this.hotels.map(hotel => hotel.distance_to_venue)
+      return [...new Set(distances)]
+    },
     filteredHotels() {
       return this.hotels
       .filter(hotel => this.filters.reduce((prev, fn) => fn(hotel) && prev, true))
@@ -76,7 +91,7 @@ export default {
       return hotel.amenities.includes(this.selectedAmenity);
     },
     filterByDistance(hotel) {
-      if(this.selectedAmenity === this.$t("message.all")) return true;
+      if(this.selectedDistance === this.$t("message.all")) return true;
 
       return hotel.distance_to_venue === this.selectedDistance;
     },
@@ -84,6 +99,9 @@ export default {
       if(this.selectedCategory === this.$t("message.all")) return true;
 
       return hotel.price_category === this.selectedCategory 
+    },
+    toMeters(distance) {
+      return `${distance.toLocaleString()} meters`
     }
   }
 };
@@ -94,11 +112,14 @@ export default {
   padding 4em
 
 .filters
+  display flex
   padding 2em 0
+  label
+    padding-right 1em
 
 
 .hotels
   display grid
-  grid-template-columns 1fr 1fr 1fr
+  grid-template-columns repeat(auto-fill, minmax(500px, max-content))
   grid-gap 2em
 </style>

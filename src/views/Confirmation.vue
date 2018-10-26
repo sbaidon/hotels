@@ -1,7 +1,11 @@
 <template>
   <div class="confirmation">
-    <div>{{hotel}}</div>
-    <div>{{room}}</div>
+    <h1>Booking for Sergio Baidon</h1>
+    <h2>Hotel: {{hotel.name}}</h2>
+    <h2>Room: {{room.name}}</h2>
+    <h2>Price: {{$n(room.price_in_usd, 'currency')}}</h2>
+    <h2>Date: {{(new Date).toLocaleString()}}</h2>
+    <button>Confirm</button>
   </div>
 </template>
 
@@ -25,7 +29,6 @@ export default {
   },
   mounted() {
     if(!this.hotel) return this.getHotel(this.hotelId)
-
     localStorage.setItem('room', JSON.stringify(this.room))
     localStorage.setItem('hotel', JSON.stringify(this.hotel))
   },
@@ -49,3 +52,18 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="stylus">
+button
+  height 30px 
+  width 200px
+
+.confirmation
+  height 80vh
+  display grid
+  align-content center
+  justify-content center
+  align-items center
+  justify-items center
+  padding 4em
+</style>

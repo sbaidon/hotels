@@ -14,7 +14,6 @@ export default new Vuex.Store({
       Vue.set(state.hotels, hotel.id, {
         ...hotel
       });
-      console.log(state.hotels);
     },
     setRoom(state, { room }) {
       Vue.set(state.rooms, room.id, {

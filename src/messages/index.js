@@ -10,3 +10,12 @@ export default {
     }
   }
 };
+
+export const numberFormats = {
+  "en-US": {
+    currency: {
+      style: "currency",
+      currency: "USD"
+    }
+  }
+};
