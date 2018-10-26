@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Home</router-link>
+      <div class="profile">
+        <img alt="avatar" src="./assets/logo.png" />
+        <span>Sergio Baidon</span>
+      </div>
     </div>
     <router-view/>
   </div>
@@ -14,12 +17,32 @@
   -moz-osx-font-smoothing grayscale
   text-align center
   color #2c3e50
+  height: 100vh
 
 #nav
-  padding 30px
+  display flex
+  padding 1em
+  text-align left
   a
-    font-weight bold
     color #2c3e50
+    font-weight bold
+    padding 0 1em
+    text-decoration none
     &.router-link-exact-active
-      color #42b983
+      color salmon
+
+.profile
+  align-items center
+  align-self flex-end
+  display flex
+  flex 1
+  justify-content flex-end
+
+  img
+    background-color black 
+    border-radius 50%
+    height 25px 
+    margin 0 1em
+    width 25px
+
 </style>
