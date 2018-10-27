@@ -1,15 +1,23 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>
+      <router-link to="/">{{$t('message.home')}}</router-link>
       <div class="profile">
         <img alt="avatar" src="./assets/logo.png" />
-        <span>Sergio Baidon</span>
+        <span>{{user}}</span>
       </div>
     </div>
     <router-view/>
   </div>
 </template>
+<script>
+import { mapState } from 'vuex'
+export default {
+  computed: {
+    ...mapState(['user'])
+  }
+}
+</script>
 <style lang="stylus">
 a
   color salmon 

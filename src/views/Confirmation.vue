@@ -1,17 +1,16 @@
 <template>
   <div class="confirmation">
-    <h1>Booking for Sergio Baidon</h1>
+    <h1>Booking #{{bookingNumber}} {{$t('message.for')}} {{user}}</h1>
     <h2>Hotel: {{hotel.name}}</h2>
     <h2>Room: {{room.name}}</h2>
     <h2>Price: {{$n(room.price_in_usd, 'currency')}}</h2>
     <h2>Date: {{(new Date).toLocaleString()}}</h2>
-    <button>Confirm</button>
   </div>
 </template>
 
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   name: "Confirmation",
@@ -25,6 +24,7 @@ export default {
   },
   data() {
     return {
+      bookingNumber: Math.ceil(Math.random() * 10000) + 1,
     }
   },
   mounted() {
@@ -34,6 +34,7 @@ export default {
   },
   computed: {
     ...mapGetters(['findHotel', 'findRoom']),
+    ...mapState(['user']),
     hotel() {
       const hotel = JSON.parse(localStorage.getItem('hotel'))
       if(hotel) return hotel

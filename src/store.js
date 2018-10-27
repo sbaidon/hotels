@@ -7,7 +7,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     hotels: {},
-    rooms: {}
+    rooms: {},
+    user: "Sergio Baidon"
   },
   mutations: {
     setHotel(state, { hotel }) {

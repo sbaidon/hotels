@@ -7,29 +7,30 @@
       <p class="description">{{hotel.description}}</p>
       <div class="details" v-if="showMore">
           <div class="detail">
-            <p>Amenities</p>
+            <p>{{$t('message.amenities')}}</p>
             <span v-for="amenity in hotel.amenities" :key="amenity">{{amenity}}</span>
           </div>
           <div class="detail">
-            <p>Rooms</p>
+            <p>{{$t('message.room', 2)}}</p>
             <span v-for="room in hotel.rooms" :key="room.id">{{room.name}}</span>
           </div>
           <div class="detail">
-            <p>Price Category</p>
+            <p>{{$t('message.priceCategory')}}</p>
             <span class="badge">{{hotel.price_category}}</span>
           </div>
           <div class="detail">
-            <p>Distance to venue</p>
-            <span class="badge">{{toMeters(hotel.distance_to_venue)}}</span>
+            <p>{{$t('message.distanceToVenue')}}</p>
+            <span class="badge">{{hotel.distance_to_venue | toMeters }}</span>
           </div>
       </div>
-      <button v-if="!showMore" @click="showMore = true">View more &darr;</button>
+      <button v-if="!showMore" @click="showMore = true">{{$t('message.viewMore')}}&darr;</button>
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "HotelCard",
   props: {
@@ -47,11 +48,6 @@ export default {
       return this.hotel.images.length ? this.hotel.images[0] : ''
     },
   },
-  methods: {
-    toMeters(distance) {
-      return `${distance.toLocaleString()} meters`
-    }
-  }
 };
 </script>
 
@@ -61,6 +57,9 @@ button
   height 25px
 
 .about
+  border-left 2px solid salmon
+  border-right 2px solid salmon
+  border-bottom 2px solid salmon
   padding 0 1em
   display grid
   grid-template-rows repeat(auto-fill, minmax(auto, max-content))
@@ -88,7 +87,6 @@ button
   grid-auto-flow column
 
 .hotel-card
-  border 1px solid salmon
   display grid
   grid-template-rows 200px 1fr 30px
   img

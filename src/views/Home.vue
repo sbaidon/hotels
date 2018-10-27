@@ -1,15 +1,15 @@
 <template>
   <div class="home">
     <div class="filters">
-      <label for="distance-to-venue">Distance to Venue
+      <label for="distance-to-venue">{{$t('message.distanceToVenue')}}
         <select v-model="selectedDistance" name="distance-to-venue">
           <option default>{{ $t("message.all") }}</option>
           <option v-for="distance in distances" :key="distance" :value="distance">
-            {{toMeters(distance)}}
+            {{distance | toMeters }}
           </option>
         </select>
       </label>
-      <label for="price-category">Price Category
+      <label for="price-category">{{$t('message.priceCategory')}}
         <select v-model="selectedCategory" name="price-category">
           <option default>{{ $t("message.all") }}</option>
           <option v-for="category in categories" :key="category">
@@ -17,7 +17,7 @@
           </option>
         </select>
       </label>
-      <label for="amenities">Amenities
+      <label for="amenities">{{$t('message.amenities')}}
         <select v-model="selectedAmenity" name="amenities">
           <option default>{{ $t("message.all") }}</option>
           <option v-for="amenity in amenities" :key="amenity">
@@ -28,7 +28,7 @@
     </div>
     <div class="hotels">
       <hotel-card v-for="hotel in filteredHotels" :key="hotel.id" :hotel="hotel">
-        <router-link :to="`/hotel/${hotel.id}`">Check it out!</router-link>
+        <router-link :to="`/hotel/${hotel.id}`">{{ $t('message.checkItOut') }}</router-link>
       </hotel-card>
     </div>
   </div>
@@ -100,9 +100,6 @@ export default {
 
       return hotel.price_category === this.selectedCategory 
     },
-    toMeters(distance) {
-      return `${distance.toLocaleString()} meters`
-    }
   }
 };
 </script>
@@ -120,6 +117,6 @@ export default {
 
 .hotels
   display grid
-  grid-template-columns repeat(auto-fill, minmax(500px, max-content))
+  grid-template-columns repeat(auto-fit, minmax(500px, max-content))
   grid-gap 2em
 </style>

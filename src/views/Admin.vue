@@ -1,9 +1,10 @@
 <template>
   <div class="admin">
-    <hotel-form @:hotel-created="saveHotel"></hotel-form>
+    <hotel-form @hotel-created="saveHotel"></hotel-form>
+    <h1>{{ $tc('message.hotel', 2) }}</h1>
     <div class="hotels">
       <hotel-card :hotel="hotel" :key="hotel.id" v-for="hotel in hotels">
-        <button @click="deleteHotel(hotel)">Remove</button>
+        <button @click="deleteHotel(hotel)">{{ $t('message.remove') }}</button>
       </hotel-card>
     </div>
   </div>
@@ -38,9 +39,9 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-
 .hotels 
   display grid
-  grid-template-columns repeat(auto-fill, minmax(500px, max-content))
+  grid-template-columns repeat(auto-fit, minmax(500px, max-content))
   grid-gap 2em
+  padding 0 4em
 </style>
