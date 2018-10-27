@@ -30,20 +30,28 @@ export default new Vuex.Store({
   },
   actions: {
     async getInitialData({ commit }) {
-      const hotels = await api.getHotels();
-      hotels.forEach(hotel => {
-        hotel.rooms.forEach(room => commit("setRoom", { room }));
-        hotel.rooms = hotel.rooms.map(room => room.id);
-        commit("setHotel", { hotel });
-      });
+      try {
+        const hotels = await api.getHotels();
+        hotels.forEach(hotel => {
+          hotel.rooms.forEach(room => commit("setRoom", { room }));
+          hotel.rooms = hotel.rooms.map(room => room.id);
+          commit("setHotel", { hotel });
+        });
+      } catch (error) {
+        throw new Error(error);
+      }
     },
     async getHotel({ commit }, id) {
-      const hotel = await api.getHotel(id);
-      hotel.rooms.forEach(room => {
-        commit("setRoom", { room });
-      });
-      hotel.rooms = hotel.rooms.map(room => room.id);
-      commit("setHotel", { hotel });
+      try {
+        const hotel = await api.getHotel(id);
+        hotel.rooms.forEach(room => {
+          commit("setRoom", { room });
+        });
+        hotel.rooms = hotel.rooms.map(room => room.id);
+        commit("setHotel", { hotel });
+      } catch (error) {
+        throw new Error(error);
+      }
     },
     async deleteHotel({ commit }, hotel) {
       try {

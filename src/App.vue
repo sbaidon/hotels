@@ -3,7 +3,7 @@
     <div id="nav">
       <router-link to="/">{{$t('message.home')}}</router-link>
       <div class="profile">
-        <img alt="avatar" src="./assets/logo.png" />
+        <img alt="avatar" src="./assets/user-logo.jpg" />
         <span>{{user}}</span>
       </div>
     </div>

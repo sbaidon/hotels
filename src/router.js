@@ -36,6 +36,7 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "confirmation" */ "./views/Admin.vue"),
       props: true
-    }
+    },
+    { path: "*", redirect: "/" }
   ]
 });
